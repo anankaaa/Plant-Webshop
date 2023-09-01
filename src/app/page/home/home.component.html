@@ -1,0 +1,189 @@
+<h1
+  class="col-12 p-4 border-0 border-radius-xl my-3 text-secondary"
+  style="background-color: rgb(234, 234, 234)"
+>
+  Statistics
+</h1>
+
+<div class="row mt-5">
+  <div class="col-md-6 col-lg-3 col-sm-12 d-flex justify-content-center my-3">
+    <div
+      class="card mb-2"
+      style="
+        width: 16rem;
+        height: 7rem;
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      <div class="card-body">
+        <h5 class="card-title mb-2">Number of Active Customers</h5>
+        <h4
+          href="#"
+          class="bg-gradient-success text-light text-center p-2"
+          style="
+            border-radius: 10px;
+            border: none;
+            box-shadow: 5px 5px 10px 1px rgb(177, 177, 177);
+            margin-top: 3%;
+            margin-left: 30%;
+            position: relative;
+          "
+        >
+          {{ activeCustomers.length }} pieces
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 col-sm-12 d-flex justify-content-center my-3">
+    <div
+      class="card mb-2"
+      style="
+        width: 16rem;
+        height: 7rem;
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      <div class="card-body">
+        <h5 class="card-title mb-2">Number of Active Products</h5>
+        <h4
+          href="#"
+          class="bg-gradient-success text-light text-center p-2"
+          style="
+            border-radius: 10px;
+            border: none;
+            box-shadow: 5px 5px 10px 1px rgb(177, 177, 177);
+            margin-top: 3%;
+            margin-left: 30%;
+            position: relative;
+          "
+        >
+          {{ activeProducts.length }} pieces
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 col-sm-12 d-flex justify-content-center my-3">
+    <div
+      class="card mb-2"
+      style="
+        width: 16rem;
+        height: 7rem;
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      <div class="card-body">
+        <h5 class="card-title mb-2">Number of not paid Orders</h5>
+        <h4
+          href="#"
+          class="bg-gradient-success text-light text-center p-2"
+          style="
+            border-radius: 10px;
+            border: none;
+            box-shadow: 5px 5px 10px 1px rgb(177, 177, 177);
+            margin-top: 3%;
+            margin-left: 30%;
+            position: relative;
+          "
+        >
+          {{ statusOrders.length }} pieces
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 col-sm-12 d-flex justify-content-center my-3">
+    <div
+      class="card mb-2"
+      style="
+        width: 16rem;
+        height: 7rem;
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      <div class="card-body">
+        <h5 class="card-title mb-2">Amount of not paid Bills</h5>
+        <h4
+          href="#"
+          class="bg-gradient-success text-light text-center p-2"
+          style="
+            border-radius: 10px;
+            border: none;
+            box-shadow: 5px 5px 10px 1px rgb(177, 177, 177);
+            margin-top: 3%;
+            margin-left: 30%;
+            position: relative;
+          "
+        >
+          {{ getUnpaidAmount() | currency : "USD" }}
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 d-flex justify-content-around mt-5 row mx-auto">
+    <h5
+      class="col-6 pt-3 mt-5 ms-5 me-auto text-center"
+      style="
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      Order status statistics
+    </h5>
+    <div
+      id="chart"
+      class="chart"
+      style="background-color: none; border: none; margin-top: 3%;
+            margin-left: 40%;"
+    >
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+    </div>
+  </div>
+
+  <div class="col-lg-6 d-flex justify-content-around mt-5 row mx-auto">
+    <h5
+      class="col-6 pt-3 pb-3 mt-5 ms-5 me-auto text-center"
+      style="
+        background-color: rgb(234, 234, 234);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 10px 15px 30px 3px rgb(177, 177, 177);
+      "
+    >
+      Bill status statistics
+    </h5>
+    <div
+      id="bill"
+      class="bill container col-12"
+      style="background-color: none; border: none; margin-top: 3%;
+            margin-left: 40%;"
+    >
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

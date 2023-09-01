@@ -1,0 +1,89 @@
+<!--
+export class Bill {
+  [x: string]: any;
+  id: number = 0;
+  orderID: Order = new Order();
+  amount: number = 0;
+  status: string = '';
+} -->
+
+<div class="row pt-5">
+  <div *ngIf="bill$ | async as bill" class="col-6 offset-3">
+    <h1 class="mt-5 text-center">Bill Editor</h1>
+    <hr class="mx-auto" style="width: 50%" />
+    <hr class="mx-auto mb-5" style="width: 20%" />
+
+    <p [hidden]="eventForm.valid" style="color: red">
+      All category must be filled and valid!
+    </p>
+    <form #eventForm="ngForm" (ngSubmit)="onUpdate(eventForm, bill)">
+      <div class="form-group mb-2 mt-2">
+        <label class="mb-2">Bill ID</label>
+        <input
+          name="id"
+          [(ngModel)]="bill.id"
+          type="number"
+          class="form-control"
+          readonly
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2">OrderID</label>
+        <input
+          name="orderID"
+          [(ngModel)]="bill.orderID"
+          type="number"
+          class="form-control"
+          pattern="[0-9].{0,5}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['orderID'].valid"
+          class="error-message"
+        >
+          OrderID must be filled with numbers, maximum 5 characters long.
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2">Amount</label>
+        <input
+          name="amount"
+          [(ngModel)]="bill.amount"
+          type="number"
+          class="form-control"
+          pattern="[0-9].{1,20}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['amount'].valid"
+          class="error-message"
+        >
+          Amount must be filled with numbers, maximum 20 characters long.
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2">Status</label>
+        <select
+          name="status"
+          [(ngModel)]="bill.status"
+          type="select"
+          class="form-select"
+          required
+        >
+          <option selected>{{ bill.status }}</option>
+          <option>new</option>
+          <option>paid</option>
+        </select>
+      </div>
+
+      <button
+        (click)="showToaster()"
+        [disabled]="eventForm.invalid"
+        type="submit"
+        class="btn btn-warning form-control btn-lg mt-2"
+      >
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+      </button>
+    </form>
+  </div>
+</div>

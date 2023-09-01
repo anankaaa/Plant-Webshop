@@ -1,0 +1,95 @@
+<div *ngIf="customers.length == 0" class="text-center mt-5">
+  <div class="spinner-border text-success me-2" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-border text-success me-2" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<h1 class="col-12 p-4 border-0 border-radius-xl my-3 text-secondary" style="background-color: rgb(234, 234, 234);">Customers List</h1>
+
+
+<button class="btn bg-gradient-success col-12 shadow-success" [routerLink]="['/edit-customer', 0]">
+  + New Customer
+</button>
+
+<div class="row ms-0">
+  <div class="table-responsive">
+    <table class="table table-borderless table-hover table-sm">
+      <thead>
+        <tr>
+          <th
+            (click)="startSort(column.key)"
+            *ngFor="let column of columns"
+            class="col_head"
+          >
+            <i
+              *ngIf="column.key === sortKey && sortDirection === -1"
+              class="fa fa-sort-amount-desc"
+            ></i>
+            <i
+              *ngIf="column.key === sortKey && sortDirection === 1"
+              class="fa fa-sort-amount-asc"
+            ></i>
+            {{ column.title }}
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let column of columns; let i = index" class="m-0 p-1">
+            <input
+              [(ngModel)]="phrases[i]"
+              type="text"
+              class="form-control scol_head "
+              (keyup)="onPhraseChange(column.key, i)"
+              placeholder="filter by {{ column.key }}"
+            />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let column of customerList$
+              | async
+              | filter : key : filterPhrase
+              | sorter : sortKey : sortDirection
+              | paginate : { itemsPerPage: 10, currentPage: page }
+          "
+        >
+          <td class="ps-3">
+            {{ column.id }}
+          </td>
+          <td>{{ column.firstName }}</td>
+          <td>{{ column.lastName }}</td>
+          <td>{{ column.email }}</td>
+          <td>
+            {{ column.address.zip }}
+            {{ column.address.country }}
+            {{ column.address.city }}
+            {{ column.address.street }}
+            {{ column.address.notes }}
+          </td>
+          <td>{{ column.active }}</td>
+          <td>
+            <div class="btn-group">
+              <button (click)="onEdit(column)" class="btn bg-gradient-info">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button (click)="onDelete(column)" class="btn bg-gradient-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls
+    class="col-12 text-center"
+    (pageChange)="page = $event"
+  ></pagination-controls>
+</div>

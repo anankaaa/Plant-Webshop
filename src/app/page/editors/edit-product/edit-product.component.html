@@ -1,0 +1,141 @@
+<div class="row pt-5 all">
+  <div *ngIf="product$ | async as product" class="col-6 offset-3">
+    <h1 class="mt-5 text-center title">Product Editor</h1>
+    <hr class="mx-auto" style="width: 50%" />
+    <hr class="mx-auto mb-5" style="width: 20%" />
+
+    <p [hidden]="eventForm.valid" style="color: red">
+      All category must be filled and valid!
+    </p>
+    <form #eventForm="ngForm" (ngSubmit)="onUpdate(eventForm, product)">
+      <div class="form-group mb-2 mt-2">
+        <label for="" class="mb-2">Product ID</label>
+        <input
+          name="id"
+          [(ngModel)]="product.id"
+          type="number"
+          class="form-control"
+          readonly
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label for="" class="mb-2">Name</label>
+        <input
+          name="name"
+          [(ngModel)]="product.name"
+          type="text"
+          class="form-control"
+          pattern="[A-Za-z].{2,50}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['name'].valid"
+          [hidden]="eventForm.controls['name'].untouched"
+          class="error-message"
+        >
+          Name is required & must be between 3-50 characters.
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="type" class="mb-2">Type</label>
+        <input
+          name="type"
+          [(ngModel)]="product.type"
+          type="text"
+          class="form-control"
+          pattern="[A-Za-z].{2,50}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['type'].valid"
+          [hidden]="eventForm.controls['type'].untouched"
+          class="error-message"
+        >
+          Type is required & must be between 3-50 characters.
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="" class="mb-2">Category ID</label>
+        <input
+          name="catID"
+          [(ngModel)]="product.catID"
+          type="number"
+          class="form-control"
+          pattern="[0-9]{0,4}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['catID'].valid"
+          [hidden]="eventForm.controls['catID'].untouched"
+          class="error-message"
+        >
+          CatID is required must be between 1-4 numbers!
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="" class="mb-2">Description</label>
+        <input
+          name="description"
+          [(ngModel)]="product.description"
+          type="text"
+          class="form-control"
+          pattern="[A-Za-z].{2,50}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['description'].valid"
+          [hidden]="eventForm.controls['description'].untouched"
+          class="error-message"
+        >
+          Description required & must be between 3-50 characters.
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="" class="mb-2">Price</label>
+        <input
+          name="price"
+          [(ngModel)]="product.price"
+          type="bumber"
+          class="form-control"
+          pattern="[0-9]{0,4}"
+          required
+        />
+        <div
+          [hidden]="eventForm.controls['price'].valid"
+          [hidden]="eventForm.controls['price'].untouched"
+          class="error-message"
+        >
+          Price is required & must be between 0-9999!
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group my-3 d-flex justify-content-center col-6">
+          <label for="" class="my-2">Featured</label>
+          <input
+            name="featured"
+            [(ngModel)]="product.featured"
+            type="checkbox"
+            class="checkbox m-2"
+          />
+        </div>
+        <div class="form-group my-3 d-flex justify-content-center col-6">
+          <label for="" class="my-2">Active</label>
+          <input
+            name="active"
+            [(ngModel)]="product.active"
+            type="checkbox"
+            class="checkbox m-2"
+          />
+        </div>
+      </div>
+      <button
+        (click)="showToaster()"
+        [disabled]="eventForm.invalid"
+        type="submit"
+        class="btn btn-warning mt-2 form-control all"
+      >
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+      </button>
+    </form>
+  </div>
+</div>

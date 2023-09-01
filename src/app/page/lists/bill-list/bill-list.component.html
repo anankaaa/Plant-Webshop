@@ -1,0 +1,29 @@
+<div *ngIf="bills.length == 0" class="text-center mt-5">
+  <div class="spinner-border text-success me-2" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-border text-success me-2" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<h1 class="col-12 p-4 border-0 border-radius-xl my-3 text-secondary" style="background-color: rgb(234, 234, 234);">Bills List</h1>
+
+
+<button class="btn bg-gradient-success col-12 shadow-success" [routerLink]="['/edit-bill', 0]"> + New Bill </button>
+
+<div class="row">
+  <div *ngIf="billList$ | async as billList" class="col-12">
+    <app-data-table
+    [listers]="billList"
+    [columns]="columns"
+    (onDelete)="onDelete($event)"
+    (onEdit)="onEdit($event)"
+    >
+    </app-data-table>
+  </div>
+</div>
+
